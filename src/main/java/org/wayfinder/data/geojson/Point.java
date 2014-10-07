@@ -1,5 +1,7 @@
 package org.wayfinder.data.geojson;
 
+import javax.persistence.Entity;
+
 public class Point extends GeoJsonObject {
 
     private LngLatAlt coordinates;

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.wayfinder.dao.Marker" table="marker">
+        <id name="id" column="id"  type="java.lang.Long" unsaved-value="null"></id>
+        <property name="description" type="java.lang.Long" column="description"/>
+        <component name="coordinates" class="LngLatAlt">
+            <property name="longitude" column="longitude"/>
+            <property name="latitude" column="latitude"/>
+            <property name="altitude" column="altitude"/>
+        </component>
+    </class>
+</hibernate-mapping>
