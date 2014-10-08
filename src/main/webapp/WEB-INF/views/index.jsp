@@ -54,6 +54,8 @@
 
 <script>
     var map = L.map('map').setView([59.902687, 30.314775], 18);
+    var geoJsonLayer= L.geoJson().addTo(map);
+    console.log(geoJsonLayer);
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -80,17 +82,19 @@
             success: function (data, textStatus) { // вешаем свой обработчик на функцию success
                 if (!$.isEmptyObject(data)) {
                     point = data;
+                    console.log(data);
+                    point.on('click',function(){
+                        console.log("marker clicked!");
+                    });
                 }
             }
         });
 
-        L.geoJson(point, {
-            onEachFeature: onEachFeature
-        }).addTo(map);
-
+        geoJsonLayer.addData(point);
     }
 
     map.on('dblclick', addMarker)
+
 
 </script>
 </html>
