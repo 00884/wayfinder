@@ -26,7 +26,7 @@
 <!-- Fixed navbar -->
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header">
+        <div class="navbar-header">gjx
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -57,23 +57,11 @@
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
         maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        attribution: 'Map  &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
                 '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
                 'Imagery © <a href="http://mapbox.com">Mapbox</a>',
         id: 'examples.map-20v6611k'
     }).addTo(map);
-
-    var point;
-    $.ajax({
-        url: '/rest/map/points/all/', // указываем URL и
-        dataType : "json",
-        async : false,
-        success: function (data, textStatus) { // вешаем свой обработчик на функцию success
-            if (!$.isEmptyObject(data)) {
-                point = data;
-            }
-        }
-    });
 
     function onEachFeature(feature, layer) {
         var popupContent = "<p>I started out as a GeoJSON </p>";
@@ -81,9 +69,28 @@
         layer.bindPopup(popupContent);
     }
 
-    L.geoJson(point, {
-        onEachFeature: onEachFeature
-    }).addTo(map);
+    function addMarker(e){
+        var point;
+        $.ajax({
+            url: '/rest/map/points/all/', // указываем URL и
+            type: 'GET',
+            data: 'longitude='+ e.latlng.lng+'&latitude='+ e.latlng.lat,
+            dataType : "json",
+            async : false,
+            success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                if (!$.isEmptyObject(data)) {
+                    point = data;
+                }
+            }
+        });
+
+        L.geoJson(point, {
+            onEachFeature: onEachFeature
+        }).addTo(map);
+
+    }
+
+    map.on('dblclick', addMarker)
 
 </script>
 </html>
