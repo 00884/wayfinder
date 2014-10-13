@@ -2,6 +2,8 @@ package org.wayfinder.dao;
 
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.wayfinder.entity.UserEntity;
 
 import java.io.File;
@@ -9,15 +11,16 @@ import java.io.File;
 /**
  * Created by Иван on 11.10.14.
  */
+@Repository
 public class UserDAOImpl implements UserDAO {
 
     private Session openSession() {
-        System.out.println("Начинаем открывать соеденение");
-        Session session= new Configuration().configure().buildSessionFactory().openSession();
-        System.out.println("Закончили открывать соеденение");
+        Session session=HibernateUtil.getSessionFactory().openSession();
         return session;
     }
 
+    @Transactional
+    @Override
     public UserEntity getUser(String login) {
         UserEntity user=(UserEntity)openSession().get(UserEntity.class,login);
         return user;

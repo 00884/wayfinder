@@ -1,6 +1,7 @@
 package org.wayfinder.dao;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.io.File;
@@ -9,15 +10,14 @@ import java.io.File;
  * Created by Иван on 13.10.14.
  */
 public class HibernateUtil{
-    private static Session session;
+    private static SessionFactory sessionFactory;
 
     static{
-        System.out.println("Начинаем открывать соеденение");
-        session= new Configuration().configure(new File("hibernate.cfg.xml")).buildSessionFactory().openSession();
-        System.out.println("Закончили открывать соеденение");
+        sessionFactory= new Configuration().configure(new File("E:\\Projects\\JavaEE\\wayfinder2\\hibernate.cfg.xml"))
+                .buildSessionFactory();
     }
 
-    public static Session getSession() {
-        return session;
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 }

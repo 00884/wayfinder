@@ -36,4 +36,5 @@
 
     <beans:bean id="userDAO" class="org.wayfinder.dao.UserDAOImpl"></beans:bean>
 
+
 </beans:beans>

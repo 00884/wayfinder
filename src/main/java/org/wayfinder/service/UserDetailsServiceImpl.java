@@ -18,7 +18,8 @@ import org.wayfinder.entity.UserEntity;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDAO dao;
+    private UserService userService;
+
     @Autowired
     private Assembler assembler;
 
@@ -29,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UserEntity userEntity=null;
         try{
-            userEntity=dao.getUser(username);
+            userEntity=userService.getUser(username);
         }
         catch (Throwable e){
             e.printStackTrace();
