@@ -1,20 +1,31 @@
-package org.wayfinder.dao;
+package org.wayfinder.entity;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.wayfinder.data.geojson.LngLatAlt;
 
 import javax.persistence.*;
 
 /**
- * Created by Иван on 08.10.14.
+ * Created by Иван on 12.10.14.
  */
+@Entity
+@Table(name="marker")
+public class MarkerEntity {
 
-public class Marker {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="id")
     private long id;
+
+    @Embedded
     private LngLatAlt coordinates;
+
+    @Column(name="description")
     private String description;
 
+    public MarkerEntity(LngLatAlt coordinates, String description) {
+        this.coordinates = coordinates;
+        this.description = description;
+    }
 
     public long getId() {
         return id;
@@ -24,12 +35,6 @@ public class Marker {
         this.id = id;
     }
 
-    public Marker(LngLatAlt coordinates, String description) {
-        this.coordinates = coordinates;
-        this.description = description;
-    }
-
-
     public LngLatAlt getCoordinates() {
         return coordinates;
     }
@@ -38,7 +43,6 @@ public class Marker {
         this.coordinates = coordinates;
     }
 
-    @Column(name="desription")
     public String getDescription() {
         return description;
     }

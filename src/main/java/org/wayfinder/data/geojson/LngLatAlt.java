@@ -6,12 +6,21 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.wayfinder.data.geojson.jackson.LngLatAltDeserializer;
 import org.wayfinder.data.geojson.jackson.LngLatAltSerializer;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
 @JsonDeserialize(using = LngLatAltDeserializer.class)
 @JsonSerialize(using = LngLatAltSerializer.class)
+@Embeddable
 public class LngLatAlt {
 
+    @Column(name="longitude")
 	private double longitude;
+
+    @Column(name="latitude")
 	private double latitude;
+
+    @Column(name="altitude")
 	private double altitude = Double.NaN;
 
 	public LngLatAlt() {

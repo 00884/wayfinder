@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="2384183286">
+  <component name="DataSourceManagerImpl" format="xml" hash="3925826209">
     <data-source source="LOCAL" name="hibernate.cfg.xml" uuid="6ce33fd7-85b6-49be-b05e-12c41c7775e9">
       <driver-ref>mysql</driver-ref>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
-      <jdbc-url>localhost:</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost:3306/wayfinder</jdbc-url>
       <user-name>root</user-name>
       <user-password>df9ddf9fdf9fdf9edf92df9c</user-password>
       <libraries>
