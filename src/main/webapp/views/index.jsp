@@ -55,7 +55,6 @@
 <script>
     var map = L.map('map').setView([59.902687, 30.314775], 18);
     var geoJsonLayer= L.geoJson().addTo(map);
-    console.log(geoJsonLayer);
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -65,11 +64,14 @@
         id: 'examples.map-20v6611k'
     }).addTo(map);
 
+
+
     function onEachFeature(feature, layer) {
         var popupContent = "<p>I started out as a GeoJSON </p>";
 
         layer.bindPopup(popupContent);
     }
+    getMarkersFromDB();
 
     function addMarker(e){
         var point;
@@ -83,14 +85,34 @@
                 if (!$.isEmptyObject(data)) {
                     point = data;
                     console.log(data);
-                    point.on('click',function(){
-                        console.log("marker clicked!");
-                    });
                 }
             }
         });
 
         geoJsonLayer.addData(point);
+    }
+
+    function getMarkersFromDB(){
+        var point;
+        $.ajax({
+            url: '/rest/map/points/getFromDB/', // указываем URL и
+            type: 'GET',
+            dataType : "json",
+            async : false,
+            success: function (data, textStatus) { // вешаем свой обработчик на функцию success
+                if (!$.isEmptyObject(data)) {
+                    console.log(data);
+                    for(var i=0; i<data.length;i++){
+                        point = data[i];
+                        //Свойство type почему то не появляется в объектах массива
+                        point.type="Feature";
+                        console.log(data[i]);
+                        geoJsonLayer.addData(point);
+                    }
+
+                }
+            }
+        });
     }
 
     map.on('dblclick', addMarker)

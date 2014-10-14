@@ -4,9 +4,17 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/wayfinder</property>
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">root</property>
-        <property name="connection.password">755486</property>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/wayfinder</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">755486</property>
+        <property name="hibernate.connection.autocommit">true</property>
+        <property name="show_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <mapping class="org.wayfinder.entity.UserEntity" resource="org/wayfinder/entity/UserEntity.hbm.xml"/>
+
     </session-factory>
 </hibernate-configuration>

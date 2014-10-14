@@ -11,7 +11,6 @@ import java.io.File;
 /**
  * Created by Иван on 11.10.14.
  */
-@Repository
 public class UserDAOImpl implements UserDAO {
 
     private Session openSession() {
@@ -26,18 +25,21 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
+    @Transactional
     @Override
     public void addUser(UserEntity user) {
         openSession().save(user);
         openSession().flush();
     }
 
+    @Transactional
     @Override
     public void updateUser(UserEntity user) {
         openSession().update(user);
         openSession().flush();
     }
 
+    @Transactional
     @Override
     public void removeUser(String login) {
         openSession().delete(getUser(login));

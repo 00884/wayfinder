@@ -7,19 +7,13 @@ import javax.persistence.*;
 /**
  * Created by Иван on 12.10.14.
  */
-@Entity
-@Table(name="marker")
 public class MarkerEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="id")
+
     private long id;
 
-    @Embedded
     private LngLatAlt coordinates;
 
-    @Column(name="description")
     private String description;
 
     public MarkerEntity(LngLatAlt coordinates, String description) {

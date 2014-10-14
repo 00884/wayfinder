@@ -13,10 +13,9 @@ import java.util.List;
 
 public class MarkerDAOImpl implements MarkerDAO {
 
-    private SessionFactory sessionFactory;
-
     private Session openSession() {
-        return sessionFactory.getCurrentSession();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        return session;
     }
 
     @Override
@@ -37,13 +36,19 @@ public class MarkerDAOImpl implements MarkerDAO {
 
     @Override
     public List<MarkerEntity> getOwnMarkers(String user) {
-        Query query=openSession().createSQLQuery("select from marker where user="+user);
+        Query query=openSession().createSQLQuery("select * from marker where user="+user);
         return query.list();
     }
 
     @Override
     public List<MarkerEntity> getSharedMarkers(String user) {
-        Query query=openSession().createSQLQuery("select from sharedmarker where user="+user);
+        Query query=openSession().createSQLQuery("select * from sharedmarker where user="+user);
+        return query.list();
+    }
+
+    @Override
+    public List<MarkerEntity> getAllMarkers() {
+        Query query=openSession().createSQLQuery("select * from marker");
         return query.list();
     }
 }
