@@ -7,21 +7,17 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "USER_ENTITY")
+@Table(name = "user")
 public class UserEntity{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private long id;
-
-    @Column(name = "USERNAME")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "PASSWORD")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "ROLES")
+    @Column(name = "roles")
     private String roles;
 
     public UserEntity(String username, String password, String roles) {
@@ -31,14 +27,6 @@ public class UserEntity{
     }
 
     public UserEntity() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {

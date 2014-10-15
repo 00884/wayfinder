@@ -115,6 +115,7 @@
     }
 
     map.on('dblclick', addMarker)
+    console.log(map);
 
 
 </script>

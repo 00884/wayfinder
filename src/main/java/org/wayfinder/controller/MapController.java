@@ -63,9 +63,13 @@ public class MapController {
             propertyMap.put("popupContent", "Im a pop up");
             feature.setProperties(propertyMap);
             Point point = new Point(longitude,latitude);
-            MarkerEntity markerEntity=new MarkerEntity(new LngLatAlt(longitude, latitude),"EMPTY");
-            // Эта строка не работает
-            markerDAO.addMarker(markerEntity);
+            MarkerEntity markerEntity=new MarkerEntity(new LngLatAlt(longitude, latitude,0),"EMPTY");
+
+            try{
+                markerDAO.addMarker(markerEntity);
+            }catch (Throwable e){
+                e.printStackTrace();
+            }
             feature.setGeometry(point);
             return new ObjectMapper().writeValueAsString(feature);
     }

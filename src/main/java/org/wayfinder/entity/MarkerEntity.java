@@ -8,18 +8,18 @@ import javax.persistence.*;
  * Created by Иван on 12.10.14.
  */
 @Entity
-@Table(name = "MARKER_ENTITY")
+@Table(name = "marker")
 public class MarkerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
+    @Column(name = "id")
     private long id;
 
-    @Column(name = "LATLONG")
+    @Embedded
     private LngLatAlt coordinates;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "description")
     private String description;
 
     public MarkerEntity(LngLatAlt coordinates, String description) {

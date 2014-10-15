@@ -43,10 +43,10 @@
     <!-- Непосредственно бин dataSource -->
     <beans:bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-          p:driverClassName="org.postgresql.Driver"
-          p:url="jdbc:postgresql://localhost:5432/f"
-          p:username="test"
-          p:password="test">
+          p:driverClassName="com.mysql.jdbc.Driver"
+          p:url="jdbc:mysql://localhost:3306/wayfinder"
+          p:username="root"
+          p:password="755486">
 
     </beans:bean>
 
