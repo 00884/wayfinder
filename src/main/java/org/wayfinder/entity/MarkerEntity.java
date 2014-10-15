@@ -7,25 +7,34 @@ import javax.persistence.*;
 /**
  * Created by Иван on 12.10.14.
  */
+@Entity
+@Table(name = "MARKER_ENTITY")
 public class MarkerEntity {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private long id;
 
+    @Column(name = "LATLONG")
     private LngLatAlt coordinates;
 
+    @Column(name = "DESCRIPTION")
     private String description;
 
     public MarkerEntity(LngLatAlt coordinates, String description) {
         this.coordinates = coordinates;
         this.description = description;
     }
+    public MarkerEntity(){
+
+    }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

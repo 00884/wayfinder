@@ -1,8 +1,12 @@
-package org.wayfinder.dao;
+package org.wayfinder.dao.impl;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import org.wayfinder.dao.MarkerDAO;
 import org.wayfinder.entity.MarkerEntity;
 
 import java.util.List;
@@ -11,44 +15,48 @@ import java.util.List;
  * Created by Иван on 07.10.14.
  */
 
+@Repository ("markerDAO")
 public class MarkerDAOImpl implements MarkerDAO {
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @Transactional
     private Session openSession() {
-        Session session=HibernateUtil.getSessionFactory().openSession();
-        return session;
+        return sessionFactory.getCurrentSession();
     }
 
-    @Override
+    @Transactional
     public void addMarker(MarkerEntity marker) {
         openSession().save(marker);
     }
 
-    @Override
+    @Transactional
     public void removeMarker(MarkerEntity marker) {
         openSession().delete(marker);
     }
 
-    @Override
+    @Transactional
     public void shareMarker(MarkerEntity marker, String user) {
         Query query=openSession().createQuery("insert into sharedmarker values("+marker.getId()+","+user);
         query.executeUpdate();
     }
 
-    @Override
+    @Transactional
     public List<MarkerEntity> getOwnMarkers(String user) {
         Query query=openSession().createSQLQuery("select * from marker where user="+user);
         return query.list();
     }
 
-    @Override
+    @Transactional
     public List<MarkerEntity> getSharedMarkers(String user) {
         Query query=openSession().createSQLQuery("select * from sharedmarker where user="+user);
         return query.list();
     }
 
-    @Override
+    @Transactional
     public List<MarkerEntity> getAllMarkers() {
-        Query query=openSession().createSQLQuery("select * from marker");
+        Query query=openSession().createQuery("from MarkerEntity as mar");
         return query.list();
     }
 }

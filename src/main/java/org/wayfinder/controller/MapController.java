@@ -2,6 +2,7 @@ package org.wayfinder.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,17 +27,14 @@ import java.util.Map;
 public class MapController {
 
     @Autowired
-    private MarkerDAO markerDAO;
+    @Qualifier("markerDAO")
+    MarkerDAO markerDAO;
 
-    @RequestMapping(value = "/rest/map/points/getFromDB", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/map/points/all", method = RequestMethod.GET)
     public @ResponseBody
     String getAllMarkers() {
         List<MarkerEntity> markers=new LinkedList<>();
-        /*markers=markerDAO.getAllMarkers();*/
-        //Когда hibernate заработает, эти данные будут браться из БД
-        markers.add(new MarkerEntity(new LngLatAlt(3.0,4.0),"34"));
-        markers.add(new MarkerEntity(new LngLatAlt(5.0,6.0),"56"));
-        markers.add(new MarkerEntity(new LngLatAlt(7.0,8.0),"78"));
+        markers=markerDAO.getAllMarkers();
         List<Feature> features=new LinkedList<>();
         try{
             for(MarkerEntity markerEntity: markers){
@@ -56,7 +54,7 @@ public class MapController {
         return  null;
     }
 
-    @RequestMapping(value = "/rest/map/points/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/rest/map/points/add", method = RequestMethod.GET)
     public @ResponseBody
     String getJson(@RequestParam("longitude") double longitude, @RequestParam("latitude") double latitude) {
         try {
@@ -67,7 +65,7 @@ public class MapController {
             Point point = new Point(longitude,latitude);
             MarkerEntity markerEntity=new MarkerEntity(new LngLatAlt(longitude, latitude),"EMPTY");
             // Эта строка не работает
-            // markerDAO.addMarker(markerEntity);
+            markerDAO.addMarker(markerEntity);
             feature.setGeometry(point);
             return new ObjectMapper().writeValueAsString(feature);
     }

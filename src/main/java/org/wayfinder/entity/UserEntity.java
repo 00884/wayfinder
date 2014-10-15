@@ -1,21 +1,27 @@
 package org.wayfinder.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Иван on 12.10.14.
  */
 
-
+@Entity
+@Table(name = "USER_ENTITY")
 public class UserEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
+    private long id;
+
+    @Column(name = "USERNAME")
     private String username;
 
+    @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "ROLES")
     private String roles;
 
     public UserEntity(String username, String password, String roles) {
@@ -25,6 +31,14 @@ public class UserEntity{
     }
 
     public UserEntity() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {

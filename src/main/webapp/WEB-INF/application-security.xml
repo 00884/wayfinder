@@ -34,8 +34,8 @@
         </beans:property>
     </beans:bean>
 
-    <beans:bean id="userDAO" class="org.wayfinder.dao.UserDAOImpl"/>
-    <beans:bean id="markerDAO" class="org.wayfinder.dao.MarkerDAOImpl"/>
+    <beans:bean id="userDAO" class="org.wayfinder.dao.impl.UserDAOImpl"/>
+    <beans:bean id="markerDAO" class="org.wayfinder.dao.impl.MarkerDAOImpl"/>
 
 
 </beans:beans>

@@ -26,7 +26,7 @@
 <!-- Fixed navbar -->
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <div class="navbar-header">gjx
+        <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -55,6 +55,7 @@
 <script>
     var map = L.map('map').setView([59.902687, 30.314775], 18);
     var geoJsonLayer= L.geoJson().addTo(map);
+    getMarkersFromDB();
 
     L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -64,19 +65,17 @@
         id: 'examples.map-20v6611k'
     }).addTo(map);
 
-
-
     function onEachFeature(feature, layer) {
         var popupContent = "<p>I started out as a GeoJSON </p>";
 
         layer.bindPopup(popupContent);
     }
-    getMarkersFromDB();
+
 
     function addMarker(e){
         var point;
         $.ajax({
-            url: '/rest/map/points/all/', // указываем URL и
+            url: '/rest/map/points/add/', // указываем URL и
             type: 'GET',
             data: 'longitude='+ e.latlng.lng+'&latitude='+ e.latlng.lat,
             dataType : "json",
@@ -95,7 +94,7 @@
     function getMarkersFromDB(){
         var point;
         $.ajax({
-            url: '/rest/map/points/getFromDB/', // указываем URL и
+            url: '/rest/map/points/all/', // указываем URL и
             type: 'GET',
             dataType : "json",
             async : false,
